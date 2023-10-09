@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.bookmanager.mapper.ManagerOrderMapper">
+    <select id="getAllOrders" resultMap="orderMapper">
+        select * from ec_order order by create_date desc
+    </select>
+    <resultMap id="orderMapper" type="Order">
+        <id column="id" property="id"></id>
+        <result column="order_code" property="orderCode"></result>
+        <result column="create_date" property="createDate"></result>
+        <result column="send_date" property="sendDate"></result>
+        <collection property="items" column="id"
+                    select="com.example.bookmanager.mapper.ManagerOrderItemMapper.getOrderItemById"></collection>
+    </resultMap>
+</mapper>

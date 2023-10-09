@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.bookapp.mapper.ShopcartMapper">
+    <select id="getAllShopcartByUserId" resultMap="shopcartMapper">
+        select * from ec_shopcart where user_id=#{userId}
+    </select>
+
+    <!-- 通过购物车的商品id 关联查询 ArticleMapper里根据商品id查此商品的详细信息 -->
+    <resultMap id="shopcartMapper" type="Shopcart">
+        <association property="article" select="com.example.bookapp.mapper.ArticleMapper.queryArticleById"
+                     column="article_id"></association>
+    </resultMap>
+</mapper>

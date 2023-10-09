@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- 通过使用<import>标签，可以将一个大的配置文件拆分成多个小的配置文件，提高可读性和维护性。
+         同时，不同模块的配置也可以分开管理，使得配置更加灵活和易于管理。-->
+    <!-- 引入其他配置文件 -->
+    <import resource="spring-dao.xml"></import>
+    <import resource="spring-service.xml"></import>
+    <import resource="spring-mvc.xml"></import>
+
+</beans>

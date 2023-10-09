@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.bookmanager.mapper.ManagerArticleMapper">
+    <select id="getAllArticle" parameterType="hashmap" resultType="article">
+        select * from ec_article where disabled = '0'
+        <if test="typeCode!=null &amp;&amp; typeCode!=''">
+            and type_code like #{typeCode} '%'
+        </if>
+        <if test="title!=null &amp;&amp; title!=''">
+            and title like '%' #{title} '%'
+        </if>
+    </select>
+
+    <insert id="saveArticle" parameterType="article">
+        insert into ec_article(title, supplier, price, locality, putaway_date, storage, image, description, type_code, create_date)
+        values(#{title},#{supplier},#{price},#{locality},#{putawayDate},#{storage},#{image},#{description},#{typeCode},#{createDate})
+    </insert>
+
+    <update id="updateArticle" parameterType="article">
+        update ec_article
+        <trim prefix="set" suffixOverrides=",">
+            <if test="title!=null">title=#{title},</if>
+            <if test="supplier!=null">supplier=#{supplier},</if>
+            <if test="price!=null">price=#{price},</if>
+            <if test="locality!=null">locality=#{locality},</if>
+            <if test="putawayDate!=null">putaway_date=#{putawayDate},</if>
+            <if test="storage!=null">storage=#{storage},</if>
+            <if test="image!=null">image=#{image},</if>
+            <if test="description!=null">description=#{description},</if>
+            <if test="typeCode!=null">type_code=#{typeCode},</if>
+            <if test="discount!=null">discount=#{discount},</if>
+        </trim>
+        where id=#{id}
+    </update>
+</mapper>

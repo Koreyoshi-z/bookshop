@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.bookapp.mapper.OrderItemMapper">
+    <select id="getOrderItemByOrderId" resultMap="orderItemMapper">
+        select * from ec_order_item where order_id=#{orderId}
+    </select>
+    <resultMap id="orderItemMapper" type="OrderItem">
+        <result column="order_num" property="orderNum"></result>
+        <association property="article" column="article_id" select="com.example.bookapp.mapper.ArticleMapper.queryArticleById"></association>
+    </resultMap>
+</mapper>

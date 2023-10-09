@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.bookapp.mapper.OrderMapper">
+    <insert id="saveOrder" parameterType="order" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+        insert into ec_order(order_code,create_date,amount,user_id) values(#{orderCode},#{createDate},#{amount},#{userId})
+    </insert>
+    
+    <select id="getOrderByUserId" resultMap="orderMapper">
+        select * from ec_order where user_id=#{userId} order by create_date
+    </select>
+    <resultMap id="orderMapper" type="Order">
+        <result column="order_code" property="orderCode"></result>
+        <result column="create_date" property="createDate"></result>
+        <result column="send_date" property="sendDate"></result>
+        <result column="pay_Status" property="payStatus"></result>
+        <!--根据id 关联查询可以获取订单详细信息-->
+        <collection property="items" column="id" select="com.example.bookapp.mapper.OrderItemMapper.getOrderItemByOrderId"></collection>
+    </resultMap>
+</mapper>
